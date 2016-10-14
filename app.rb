@@ -1,7 +1,21 @@
+require './logic/idea'
+
 class IdeaBoxApp < Sinatra::Base
-  get '/' do
-    "Hello World"
+  configure :development do
+    register Sinatra::Reloader
   end
 
-  run! if app_file == $0
+  get '/' do
+    erb :index
+  end
+
+  post '/' do
+    idea = Idea.new
+    idea.save
+    "Create an Idea"
+  end
+
+  not_found do
+    erb :error
+  end
 end
