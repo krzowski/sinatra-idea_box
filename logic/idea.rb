@@ -21,6 +21,12 @@ class Idea
     Idea.database
   end
 
+  def self.delete(id)
+    database.transaction do
+      database['ideas'].delete_at(id)
+    end
+  end
+
   def save
     database.transaction do |db|
       db['ideas'] ||= []
