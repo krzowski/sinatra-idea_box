@@ -2,20 +2,27 @@ require 'yaml/store'
 
 class IdeaStore
   def self.all
-    raw_ideas.map do |data|
-      Idea.new(data)
+    ideas = []
+    raw_ideas.each_with_index do |data, i|
+      ideas << Idea.new(data.merge("id" => i))
     end
+    ideas
   end
 
   def self.create(data)
-    database.transaction do |db|
-      db['ideas'] ||= []
-      db['ideas'] << data
+    database.transaction do 
+      database['ideas'] << data
     end
   end
 
   def self.database
+    return @database if @database
+
     @database ||= YAML::Store.new "db/ideabox"
+    @database.transaction do
+      @database['ideas'] ||= []
+    end
+    @database
   end
 
   def self.delete(id)
@@ -26,7 +33,7 @@ class IdeaStore
 
   def self.find(id)
     idea = find_idea(id)
-    Idea.new(idea)
+    Idea.new(idea.merge("id" => id))
   end
 
   def self.find_idea(id)

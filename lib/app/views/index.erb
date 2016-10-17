@@ -13,12 +13,15 @@
 <h3>Existing Ideas</h3>
 
 <ul>
-  <% ideas.each_with_index do |idea, id| %>
+  <% ideas.each do |idea| %>
     <li>
-      <%= idea.title %> (<%= id %>)<br/>
+      <%= idea.title %><br/>
       <%= idea.description %>
-      <a href="/<%= id %>/edit">edit</a>
-      <form action="/<%= id %>" method="POST">
+      <form action="/<%= idea.id %>/like" method="POST" style="display: inline">
+        <input type="submit" value="+">
+      </form>
+      <a href="/<%= idea.id %>/edit">edit</a>
+      <form action="/<%= idea.id %>" method="POST">
         <input type="hidden" name="_method" value="DELETE">
         <input type="submit" value="delete">
       </form>

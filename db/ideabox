@@ -2,7 +2,10 @@
 ideas:
 - title: ajaja
   description: nie
-- title: nowe tak
-  description: nowe nie21
+  rank: 11
 - title: inna nie
   description: nie inna
+  rank: 10
+- title: another one
+  description: aye
+  rank: 11
