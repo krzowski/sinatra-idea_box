@@ -1,8 +1,8 @@
-require './logic/idea'
-require './logic/idea_store'
+require 'idea_box'
 
 class IdeaBoxApp < Sinatra::Base
   set :method_override, true
+  set :root, 'lib/app'
 
   configure :development do
     register Sinatra::Reloader
