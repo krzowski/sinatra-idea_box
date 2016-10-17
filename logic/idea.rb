@@ -3,14 +3,14 @@ require 'yaml/store'
 class Idea
   attr_reader :title, :description
 
-  def initialize(title, description)
-    @title = title
-    @description = description
+  def initialize(data)
+    @title = data['title']
+    @description = data['description']
   end
 
   def self.all
     raw_ideas.map do |data|
-      Idea.new(data[:title], data[:description])
+      Idea.new(data)
     end
   end
 
@@ -29,7 +29,7 @@ class Idea
 
   def self.find(id)
     idea = find_idea(id)
-    Idea.new(idea[:title], idea[:description])
+    Idea.new(idea)
   end
 
   def self.find_idea(id)
@@ -41,7 +41,7 @@ class Idea
   def save
     database.transaction do |db|
       db['ideas'] ||= []
-      db['ideas'] << { title: title, description: description }
+      db['ideas'] << { 'title' => title, 'description' => description }
     end
   end
 
@@ -51,9 +51,9 @@ class Idea
     end
   end
 
-  def self.update(id, data)
+  def update(id, data)
     database.transaction do
-      database['ideas'][id] = data
+      database['ideas'][id]
     end
   end
 end

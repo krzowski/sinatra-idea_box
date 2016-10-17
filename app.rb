@@ -12,7 +12,8 @@ class IdeaBoxApp < Sinatra::Base
   end
 
   post '/' do
-    Idea.new(params['idea_title'], params['idea_description']).save
+    idea = Idea.new( params['idea'] )
+    idea.save
     redirect '/'
   end
 
@@ -27,11 +28,7 @@ class IdeaBoxApp < Sinatra::Base
   end
 
   put '/:id' do |id|
-    data = {
-      title: params['idea_title'],
-      description: params['idea_description']
-    }
-    Idea.update(id.to_i, data)
+    Idea.update(id.to_i, params['idea'])
     redirect '/'
   end
 
