@@ -51,9 +51,9 @@ class Idea
     end
   end
 
-  def update(id, data)
+  def self.update(id, data)
     database.transaction do
-      database['ideas'][id]
+      database['ideas'][id] = data
     end
   end
 end
