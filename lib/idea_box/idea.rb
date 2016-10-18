@@ -9,6 +9,10 @@ class Idea
     @id = data['id']
   end
 
+  def dislike!
+    @rank -= 1
+  end
+
   def like!
     @rank += 1
   end

@@ -21,6 +21,9 @@
       <form action="/<%= idea.id %>/like" method="POST" style="display: inline">
         <input type="submit" value="+">
       </form>
+      <form action="/<%= idea.id %>/dislike" method="POST" style="display: inline">
+        <input type="submit" value="-">
+      </form>
       <a href="/<%= idea.id %>/edit">edit</a>
       <form action="/<%= idea.id %>" method="POST" style="display: inline">
         <input type="hidden" name="_method" value="DELETE">
