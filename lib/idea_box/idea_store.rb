@@ -9,6 +9,15 @@ class IdeaStore
     ideas
   end
 
+
+  def self.all_by_tag(tag)
+    ideas = []
+    raw_ideas.each_with_index do |data, i| 
+      ideas << Idea.new(data.merge("id" => i)) if data["tags"].split(' ').include? tag
+    end
+    ideas
+  end
+
   def self.create(data)
     database.transaction do 
       database['ideas'] << data

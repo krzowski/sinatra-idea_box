@@ -1,11 +1,22 @@
 ---
 ideas:
-- title: ajaja
-  description: nie
-  rank: 4
-- title: inna nie
-  description: nie inna
-  rank: 11
-- title: another one
-  description: aye
-  rank: 11
+- title: second idea
+  description: second one
+  rank: 3
+  tags: second idea
+- title: third idea
+  description: third one
+  rank: 2
+  tags: third
+- title: fourth idea
+  description: fourth one
+  rank: 2
+  tags: fourth idea
+- title: fifth idea
+  description: fifth one
+  rank: 0
+  tags: fifth
+- title: sixth idea
+  description: sixth one
+  rank: 0
+  tags: sixth idea

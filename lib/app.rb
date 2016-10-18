@@ -1,6 +1,7 @@
 require 'idea_box'
 
 class IdeaBoxApp < Sinatra::Base
+  enable :sessions
   set :method_override, true
   set :root, 'lib/app'
 
@@ -9,7 +10,13 @@ class IdeaBoxApp < Sinatra::Base
   end
 
   get '/' do
-    erb :index, locals: { ideas: IdeaStore.all.sort, idea: Idea.new(params) }
+    redirect "/tag/#{session[:tag]}" if session[:tag]
+    erb :index, locals: { ideas: IdeaStore.all.sort }
+  end
+
+  get '/index' do
+    session.clear
+    redirect '/'
   end
 
   post '/' do
@@ -44,6 +51,11 @@ class IdeaBoxApp < Sinatra::Base
     idea.dislike!
     IdeaStore.update(id.to_i, idea.to_h)
     redirect '/'
+  end
+
+  get '/tag/:tag' do |tag|
+    session[:tag] = tag
+    erb :tag, locals: { ideas: IdeaStore.all_by_tag(tag).sort }
   end
 
   not_found do
