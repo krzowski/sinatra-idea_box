@@ -21,6 +21,7 @@ class IdeaStore
 
   # create a new idea
   def self.create(data)
+    data['date'] = DateTime.now
     database.transaction do 
       database['ideas'] << data
     end

@@ -20,3 +20,7 @@ ideas:
   description: sixth one
   rank: 0
   tags: sixth idea
+- title: new idea
+  description: update them
+  tags: oh yea idea
+  date: !ruby/object:DateTime 2016-10-19 14:51:51.242246000 +02:00

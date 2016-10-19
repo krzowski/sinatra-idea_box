@@ -1,6 +1,6 @@
 class Idea
   include Comparable
-  attr_reader :title, :description, :rank, :id, :tags
+  attr_reader :title, :description, :rank, :id, :tags, :date
 
   def initialize(data = {})
     @title = data['title']
@@ -8,6 +8,7 @@ class Idea
     @rank = data['rank'] || 0
     @id = data['id']
     @tags = data['tags']
+    @date = data['date']
   end
 
   def dislike!
@@ -26,7 +27,8 @@ class Idea
     { "title" => title, 
       "description" => description, 
       "rank" => rank,
-      "tags" => tags
+      "tags" => tags,
+      "date" => date
     }
   end
 
