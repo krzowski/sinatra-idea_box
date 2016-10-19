@@ -11,9 +11,13 @@ class IdeaBoxApp < Sinatra::Base
   end
 
 
+  # root
   get '/' do
-    erb :index, locals: { ideas: IdeaStore.all_by_tag(tag) } if session[:tag]
-    erb :index, locals: { ideas: IdeaStore.all.sort }
+    if session[:tag]
+      erb :index, locals: { ideas: IdeaStore.all_by_tag(session[:tag]) } 
+    else
+      erb :index, locals: { ideas: IdeaStore.all.sort }
+    end
   end
 
   # access root page without session
@@ -64,7 +68,7 @@ class IdeaBoxApp < Sinatra::Base
   # get all ideas that share a tag
   get '/tag/:tag' do |tag|
     session[:tag] = tag
-    redirect '/' erb :tag, locals: { ideas: IdeaStore.all_by_tag(tag).sort }
+    redirect '/'
   end
 
 
