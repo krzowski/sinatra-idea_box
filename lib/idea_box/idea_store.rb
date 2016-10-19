@@ -1,6 +1,7 @@
 require 'yaml/store'
 
 class IdeaStore
+  # return all ideas
   def self.all
     ideas = []
     raw_ideas.each_with_index do |data, i|
@@ -9,7 +10,7 @@ class IdeaStore
     ideas
   end
 
-
+  # return all ideas that share the same tag
   def self.all_by_tag(tag)
     ideas = []
     raw_ideas.each_with_index do |data, i| 
@@ -18,28 +19,32 @@ class IdeaStore
     ideas
   end
 
+  # create a new idea
   def self.create(data)
     database.transaction do 
       database['ideas'] << data
     end
   end
 
+  # return the database, create a new one if doesn't exist
   def self.database
     return @database if @database
 
-    @database ||= YAML::Store.new "db/ideabox"
+    @database = YAML::Store.new "db/ideabox"
     @database.transaction do
       @database['ideas'] ||= []
     end
     @database
   end
 
+  # delete an idea
   def self.delete(id)
     database.transaction do
       database['ideas'].delete_at(id)
     end
   end
 
+  # return the idea with given id
   def self.find(id)
     idea = find_idea(id)
     Idea.new(idea.merge("id" => id))
@@ -51,12 +56,14 @@ class IdeaStore
     end
   end
 
+  # return ideas in the form of a hash
   def self.raw_ideas
     database.transaction do |db|
       db['ideas'] || []
     end
   end
 
+  # update an idea
   def self.update(id, data)
     database.transaction do
       database['ideas'][id] = data
