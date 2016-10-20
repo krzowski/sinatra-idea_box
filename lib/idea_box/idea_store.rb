@@ -68,6 +68,7 @@ class IdeaStore
   def self.update(id, data)
     database.transaction do
       database['ideas'][id] = data
+      database["ideas"][id]["date"] = DateTime.parse(data["date"])
     end
   end
 end

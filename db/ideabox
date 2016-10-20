@@ -9,21 +9,19 @@ ideas:
   description: update them
   tags: oh yea idea
   date: !ruby/object:DateTime 2016-10-19 14:51:51.242246000 +02:00
-- title: new idea
+- title: new idea feafesnf new idea idea idea idea idea
   description: created
-  tags: yea today
-  date: !ruby/object:DateTime 2016-10-20 14:39:16.065513000 +02:00
+  tags: yea today nice niecely
+  date: !ruby/object:DateTime 2016-10-20 14:39:16.000000000 +02:00
 - title: new idea idea
   description: some text
-  tags: idea today
-  date: !ruby/object:DateTime 2016-10-20 14:41:15.548835000 +02:00
+  tags: idea today another
+  date: !ruby/object:DateTime 2016-10-20 14:52:58.516733000 +02:00
 - title: gregggggg
   description: sdfewfedwede
-  rank: 2
   tags: new newn newa
-  date: !ruby/object:DateTime 2016-10-20 14:52:58.516733000 +02:00
+  date: !ruby/object:DateTime 2016-10-20 14:52:58.000000000 +02:00
 - title: fsdfsfjl
   description: "ofnsljfsefgse\r\nidea\r\n\r\n"
-  rank: 1
   tags: idea
-  date: !ruby/object:DateTime 2016-10-20 14:58:13.342583000 +02:00
+  date: !ruby/object:DateTime 2016-10-20 14:52:58.516733000 +02:00

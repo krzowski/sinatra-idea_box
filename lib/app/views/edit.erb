@@ -11,5 +11,7 @@
   <input type="hidden" name="_method" value="PUT" />
   <input type='text' name='idea[title]' value="<%= idea.title %>"/><br/>
   <textarea name='idea[description]'><%= idea.description %></textarea><br/>
+  <input type="text" name="idea[tags]" value ="<%= idea.tags %>">
+  <input type="hidden" name="idea[date]" value="<%= idea.date %>">
   <input type='submit'/>
 </form>

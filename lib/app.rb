@@ -26,6 +26,10 @@ class IdeaBoxApp < Sinatra::Base
     redirect '/'
   end
 
+  get '/:id' do |id|
+    erb :idea, locals: { idea: IdeaStore.find(id.to_i)}
+  end
+
   get '/:id/edit' do |id|
     idea = IdeaStore.find(id.to_i)
     erb :edit, locals: { idea: idea }
@@ -33,7 +37,7 @@ class IdeaBoxApp < Sinatra::Base
 
   put '/:id' do |id|
     IdeaStore.update(id.to_i, params['idea'])
-    generate_index
+    redirect "/#{id}"
   end
 
   delete '/:id' do |id|
