@@ -1,4 +1,4 @@
-#  and make path for search + corresponding function
+#  add test coverage 
 
 require 'idea_box'
 
@@ -15,17 +15,8 @@ class IdeaBoxApp < Sinatra::Base
 
   # root
   get '/' do
-    if session[:tag]
-      erb :index, locals: { ideas: IdeaStore.all_by_tag(session[:tag]) } 
-    else
-      erb :index, locals: { ideas: IdeaStore.all.sort }
-    end
-  end
-
-  # access root page without session
-  get '/index' do
     session.clear
-    redirect '/'
+    generate_index
   end
 
 
@@ -42,49 +33,68 @@ class IdeaBoxApp < Sinatra::Base
 
   put '/:id' do |id|
     IdeaStore.update(id.to_i, params['idea'])
-    redirect '/'
+    generate_index
   end
 
   delete '/:id' do |id|
     IdeaStore.delete(id.to_i)
-    redirect '/'
+    generate_index
   end
 
 
-  # change the priority of an idea
+  # change priority of an idea
   post '/:id/like' do |id|
     idea = IdeaStore.find(id.to_i)
     idea.like!
     IdeaStore.update(id.to_i, idea.to_h)
-    redirect '/'
+    generate_index
   end
 
   post '/:id/dislike' do |id|
     idea = IdeaStore.find(id.to_i)
     idea.dislike!
     IdeaStore.update(id.to_i, idea.to_h)
-    redirect '/'
+    generate_index
   end
 
 
   # get all ideas that share a tag
   get '/tag/:tag' do |tag|
+    session.clear
     session[:tag] = tag
-    redirect '/'
+    generate_index
   end
 
 
+  # search for an idea by date of creation
   post '/search' do 
-    ideas = []
-    IdeaStore.all.each do |idea|
-      date = idea.date
-      ideas << idea if "#{date.month}/#{date.day}/#{date.year}" == params['date']
-    end
-    erb :index, locals: { ideas: ideas }
+    session.clear
+    session[:search] = params['date']
+    generate_index
   end
 
 
   not_found do
     erb :error, layout: false
   end
+
+
+  def generate_index
+    ideas = session.any? ? get_ideas_from_session : IdeaStore.all
+    erb :index, locals: { ideas: ideas.sort }
+  end
+
+
+  def get_ideas_from_session
+    if session[:tag]
+      ideas = IdeaStore.all_by_tag(session[:tag])
+    elsif session[:search]
+      ideas = []
+      IdeaStore.all.each do |idea|
+        date = idea.date
+        ideas << idea if "#{date.month}/#{date.day}/#{date.year}" == session[:search]
+      end
+    end
+  end
+
 end
