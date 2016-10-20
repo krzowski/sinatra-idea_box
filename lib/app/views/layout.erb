@@ -3,9 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>IdeaBox</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header><a href="/index">All ideas</a></header>
+  <div class="search">Search by date: 
+    <form action="/search" method="POST">
+      <input type="text" name="date" class="auto-kal" placeholder="MM/DD/YYYY">
+      <input type="submit" value="Search">
+    </form>
+  </div>
+  <h1>IdeaBox</h1>
+  <form action='/' method='POST'>
+    <p>
+      Your Idea:
+    </p>
+    Title: <input type='text' name='idea[title]'/><br/>
+    Description: <textarea name='idea[description]'></textarea><br/>
+    Tags: <input type="text" name="idea[tags]">
+    <input type='submit'/>
+  </form>
   <%= yield %>
+
+  <script src="/js/kalendae.standalone.js"></script>
 </body>
 </html>

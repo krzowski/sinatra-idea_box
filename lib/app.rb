@@ -1,3 +1,5 @@
+#  and make path for search + corresponding function
+
 require 'idea_box'
 
 class IdeaBoxApp < Sinatra::Base
@@ -72,7 +74,17 @@ class IdeaBoxApp < Sinatra::Base
   end
 
 
+  post '/search' do 
+    ideas = []
+    IdeaStore.all.each do |idea|
+      date = idea.date
+      ideas << idea if "#{date.month}/#{date.day}/#{date.year}" == params['date']
+    end
+    erb :index, locals: { ideas: ideas }
+  end
+
+
   not_found do
-    erb :error
+    erb :error, layout: false
   end
 end

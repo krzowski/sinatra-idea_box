@@ -1,0 +1,8 @@
+@import "kalendae.css";
+
+form {
+  display: inline;
+}
+input {
+  display: inline-block
+}
